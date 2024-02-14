@@ -1,18 +1,15 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
 
-# Other files and folders
-.settings/
+local humanoid = character:WaitForChild("Humanoid")
+local debounce = false
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+local function onKeyPress(input)
+    if input.KeyCode == Enum.KeyCode.E and not debounce then
+        debounce = true
+        humanoid.Health = 0
+        debounce = false
+    end
+end
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
